@@ -24,11 +24,12 @@ const typeDefs = `#graphql
   }
 
   type Query {
+    novel(id: ID!): Novel
     novels: [Novel]
   }
 
   type Mutation {
-    addNovel: Novel
+    addNovel(image: String, title: String): Novel
   }
 `
 
@@ -37,12 +38,29 @@ const resolvers = {
     novels: async (parent: any, args: any, context: TContext) => {
       return await context.prisma.novel.findMany()
     },
+    novel: async (parent: any, args: any, context: TContext) => {
+      return await context.prisma.novel.findUnique({
+        where: {
+          id: args.id,
+        },
+      })
+    },
   },
   Novel: {
     authors: async (parent: any, args: any, context: TContext) => {
       return await context.prisma.author.findMany({
         where: {
           novelId: parent.id,
+        },
+      })
+    },
+  },
+  Mutation: {
+    addNovel: async (parent: any, args: any, context: TContext) => {
+      return await context.prisma.novel.create({
+        data: {
+          title: args.title,
+          image: args.image,
         },
       })
     },
