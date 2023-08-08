@@ -20,8 +20,8 @@ model Novel {
 }
 
 model Author {
-  id    String  @id @default(uuid())
-  title String
+  id    String @id @default(uuid())
+  name String
 
   Novel   Novel?  @relation(fields: [novelId], references: [id])
   novelId String?
