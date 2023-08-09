@@ -1,4 +1,5 @@
 import { INovel } from '@/@types/typings'
+import { DELETE_NOVEL } from '@/graphql/mutations'
 import { GET_NOVELS } from '@/graphql/queries'
 import { BASE_URL } from '@/utils/config'
 import { useMutation } from '@apollo/client'
@@ -10,9 +11,10 @@ interface INovelProps {
 }
 
 export const Novel = ({ novel }: INovelProps) => {
-  // const [deleteNovel] = useMutation(DELETE_NOVEL, {
-  //   refetchQueries: [{ query: GET_NOVELS }],
-  // })
+  const [deleteNovel] = useMutation(DELETE_NOVEL, {
+    refetchQueries: [{ query: GET_NOVELS }],
+  })
+
   return (
     <article className="flex scale-90 flex-col  bg-slate-200 p-4 text-white shadow-sm transition duration-300 ease-out hover:scale-100 hover:bg-slate-300 hover:shadow-lg dark:bg-zinc-800 ">
       {novel.image && (
@@ -47,7 +49,7 @@ export const Novel = ({ novel }: INovelProps) => {
       </Link>
 
       <button
-        // onClick={() => deleteNovel({ variables: { id: novel.id } })}
+        onClick={() => deleteNovel({ variables: { id: novel.id } })}
         className="mt-5 rounded-lg bg-red-500 p-2"
       >
         Delete

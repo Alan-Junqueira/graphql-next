@@ -15,6 +15,7 @@ export const Novels = () => {
 
   const [addNovel] = useMutation(ADD_NOVEL, {
     variables: { image, title },
+    refetchQueries: [{ query: GET_NOVELS }],
   })
 
   const novels: INovel[] = data?.novels
