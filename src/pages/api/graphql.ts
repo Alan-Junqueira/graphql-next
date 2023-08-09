@@ -30,6 +30,11 @@ const typeDefs = `#graphql
 
   type Mutation {
     addNovel(image: String, title: String): Novel
+    updateNovel(id: ID!, title: String, image: String): Novel
+    deleteNovel(id: ID!): Novel
+
+    addAuthor(novelId: ID!, name: String): Author
+    deleteAuthor(id: ID!): Author
   }
 `
 
@@ -61,6 +66,40 @@ const resolvers = {
         data: {
           title: args.title,
           image: args.image,
+        },
+      })
+    },
+    updateNovel: async (parent: any, args: any, context: TContext) => {
+      return await context.prisma.novel.update({
+        where: {
+          id: args.id,
+        },
+        data: {
+          title: args.title,
+          image: args.image,
+        },
+      })
+    },
+    deleteNovel: async (parent: any, args: any, context: TContext) => {
+      return await context.prisma.novel.delete({
+        where: {
+          id: args.id,
+        },
+      })
+    },
+
+    addAuthor: async (parent: any, args: any, context: TContext) => {
+      return await context.prisma.author.create({
+        data: {
+          novelId: args.novelId,
+          name: args.name,
+        },
+      })
+    },
+    deleteAuthor: async (parent: any, args: any, context: TContext) => {
+      return await context.prisma.author.delete({
+        where: {
+          id: args.id,
         },
       })
     },
