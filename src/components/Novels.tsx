@@ -5,6 +5,7 @@ import { ADD_NOVEL } from '@/graphql/mutations'
 import { GET_NOVELS } from '@/graphql/queries'
 import { useMutation, useQuery } from '@apollo/client'
 import { FormEvent, useState } from 'react'
+import { Novel } from './Novel'
 
 export const Novels = () => {
   const [title, setTitle] = useState('')
@@ -59,11 +60,17 @@ export const Novels = () => {
             type="text"
             value={image}
             onChange={(e) => setImage(e.target.value)}
-            placeholder="Enter title"
+            placeholder="Enter image url"
             className="rounded-lg border bg-transparent p-2 text-white"
           />
           <button className="rounded-lg bg-yellow-500 p-2">Add Novel</button>
         </form>
+
+        <div className="grid grid-cols-4 gap-2">
+          {novels.map((novel) => (
+            <Novel key={novel.id} novel={novel} />
+          ))}
+        </div>
       </div>
     </div>
   )
