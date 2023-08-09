@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.0",
     "@apollo/server": "^4.9.1",
     "@as-integrations/next": "^2.0.1",
     "@prisma/client": "^5.1.1",
