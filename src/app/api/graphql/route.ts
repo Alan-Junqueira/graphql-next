@@ -1,7 +1,7 @@
 import { ApolloServer } from '@apollo/server'
 import { startServerAndCreateNextHandler } from '@as-integrations/next'
 import { PrismaClient } from '@prisma/client'
-import { prisma } from '../../../prisma/db'
+import { prisma } from '../../../../prisma/db'
 import { resolvers } from '@/graphql/resolvers'
 import { typeDefs } from '@/graphql/schema'
 
@@ -14,6 +14,8 @@ const apolloServer = new ApolloServer<TContext>({
   typeDefs,
 })
 
-export default startServerAndCreateNextHandler(apolloServer, {
+const handler = startServerAndCreateNextHandler(apolloServer, {
   context: async (req, res) => ({ req, res, prisma }),
 })
+
+export { handler as GET, handler as POST };
