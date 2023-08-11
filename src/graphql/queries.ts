@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from "@apollo/client";
 
 export const GET_NOVELS = gql`
   query Novels {
@@ -15,4 +15,21 @@ export const GET_NOVELS = gql`
       updatedAt
     }
   }
-`
+`;
+
+export const GET_NOVEL = gql`
+  query Novel($id: ID!) {
+    novel(id: $id) {
+      authors {
+        id
+        name
+        novelId
+      }
+      createdAt
+      id
+      image
+      title
+      updatedAt
+    }
+  }
+`;
